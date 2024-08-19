@@ -14,7 +14,11 @@ struct BookExample {
 struct MyApp: App {
     let examples: [BookExample] = [
         BookExample(name: "Async Property", view: AsyncPropsView()),
-        BookExample(name: "Async Let", view: AsyncLetView())
+        BookExample(name: "Async Let", view: AsyncLetView()),
+        BookExample(name: "Continuations", view: ContinuationView()),
+        BookExample(name: "Stored Continuations", view: StoredContinuationsView()),
+        BookExample(name: "AsyncSequence", view: AsyncSequenceView()),
+        BookExample(name: "AsyncSequence Ops", view: AsyncSequenceOperationsView())
     ]
 
     var body: some Scene {
