@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AsyncSequenceView: View {
-    // MARK: - Properties
+    // MARK: - Properties    
     @State private var users: [User] = []
 
     // MARK: - Body
