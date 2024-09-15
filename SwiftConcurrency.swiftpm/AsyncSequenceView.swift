@@ -52,7 +52,7 @@ struct AsyncSequenceView: View {
 private extension AsyncSequenceView {
     func fetchUsers() async throws {
         users = []
-        let url = URL(string: "https://hws.dev/users.csv")!
+        let url = URL(string: Endpoints.users.rawValue)!
 
         for try await line in url.lines {
             let parts = line.split(separator: ",")

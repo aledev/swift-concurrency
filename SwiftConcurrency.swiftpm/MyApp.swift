@@ -18,7 +18,9 @@ struct MyApp: App {
         BookExample(name: "Continuations", view: ContinuationView()),
         BookExample(name: "Stored Continuations", view: StoredContinuationsView()),
         BookExample(name: "AsyncSequence", view: AsyncSequenceView()),
-        BookExample(name: "AsyncSequence Ops", view: AsyncSequenceOperationsView())
+        BookExample(name: "AsyncSequence Ops", view: AsyncSequenceOperationsView()),
+        BookExample(name: "CustomAsyncSequence", view: CustomAsyncSequenceView()),
+        BookExample(name: "Task", view: TaskView())
     ]
 
     var body: some Scene {
