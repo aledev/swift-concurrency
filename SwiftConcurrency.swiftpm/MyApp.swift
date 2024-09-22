@@ -20,7 +20,10 @@ struct MyApp: App {
         BookExample(name: "AsyncSequence", view: AsyncSequenceView()),
         BookExample(name: "AsyncSequence Ops", view: AsyncSequenceOperationsView()),
         BookExample(name: "CustomAsyncSequence", view: CustomAsyncSequenceView()),
-        BookExample(name: "Task", view: TaskView())
+        BookExample(name: "Task: Part I", view: TaskView()),
+        BookExample(name: "Task: Part II", view: TaskResultView()),
+        BookExample(name: "Task: Part III", view: TaskGroupsView()),
+        BookExample(name: "Task: Part IV", view: TaskLocalValuesView())
     ]
 
     var body: some Scene {

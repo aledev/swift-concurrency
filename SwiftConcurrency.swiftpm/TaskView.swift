@@ -11,6 +11,7 @@ struct TaskView: View {
     // MARK: - Properties
     @State private var selection: ExampleOption = .select
     @State private var messages: [Message] = []
+    @StateObject private var model = ViewModel()
 
     // MARK: - Body
     var body: some View {
@@ -40,7 +41,7 @@ struct TaskView: View {
                 }
             }
         }
-        .navigationTitle("Task")
+        .navigationTitle("Task: Part I")
         .onChange(of: selection) { newState in
             Task {
                 await testExample(with: newState)
@@ -59,6 +60,14 @@ private extension TaskView {
             await fetchUpdates()
         case .loadMessages:
             await loadMessages()
+        case .loginTask:
+            await loginTask()
+        case .loginDetachedTask:
+            await loginDetachedTask()
+        case .workTask:
+            doWorkNormalTask()
+        case .workDetachedTask:
+            doWorkDetachedTask()
         }
     }
 
@@ -105,6 +114,44 @@ private extension TaskView {
             ]
         }
     }
+
+    func loginTask() async {
+        let user = User()
+        await user.login()
+    }
+
+    func loginDetachedTask() async {
+        let user = User()
+        await user.detachedLogin()
+    }
+
+    func doWorkNormalTask() {
+        Task {
+            for i in 1...10_000 {
+                debugPrint("In Task 1: \(i)")
+            }
+        }
+
+        Task {
+            for i in 1...10_000 {
+                debugPrint("In Task 2: \(i)")
+            }
+        }
+    }
+
+    func doWorkDetachedTask() {
+        Task.detached {
+            for i in 1...10_000 {
+                debugPrint("In Task 1: \(i)")
+            }
+        }
+
+        Task.detached {
+            for i in 1...10_000 {
+                debugPrint("In Task 2: \(i)")
+            }
+        }
+    }
 }
 
 // MARK: - Internal Objects
@@ -113,6 +160,10 @@ private extension TaskView {
         case select = "Select a test example"
         case fetchUpdates = "Fetch Updates"
         case loadMessages = "Load Messages"
+        case loginTask = "Login with Task"
+        case loginDetachedTask = "Login with Detached Task"
+        case workTask = "Work with Task"
+        case workDetachedTask = "Work with Detached Task"
     }
 
     struct NewsItem: Decodable {
@@ -131,6 +182,35 @@ private extension TaskView {
         let from: String
         let text: String
     }
+
+    actor User {
+        func login() {
+            Task {
+                if authenticate(user: "user", password: "pa$$word") {
+                    debugPrint("Successfully logged in.")
+                } else {
+                    debugPrint("Sorry, something went wrong.")
+                }
+            }
+        }
+
+        func detachedLogin() {
+            Task.detached {
+                if await self.authenticate(user: "user", password: "pa$$word") {
+                    debugPrint("Successfully logged in.")
+                } else {
+                    debugPrint("Sorry, something went wrong.")
+                }
+            }
+        }
+
+        func authenticate(user: String, password: String) -> Bool {
+            // Complicated logic here
+            return true
+        }
+    }
+
+    class ViewModel: ObservableObject {}
 }
 
 // MARK: - Previews

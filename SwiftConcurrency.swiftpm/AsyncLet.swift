@@ -122,7 +122,7 @@ extension AsyncLetView {
         )
 
         async let (messageData, _) = URLSession.shared.data(
-            from: URL(string: "https://hws.dev/user-messages.json")!
+            from: URL(string: Endpoints.userMessages.rawValue)!
         )
 
         do {
@@ -143,7 +143,7 @@ extension AsyncLetView {
         debugPrint("Fetching favorites for \(user.name)")
 
         do {
-            let url = URL(string: "https://hws.dev/user-favorites.json")!
+            let url = URL(string: Endpoints.userFavorites.rawValue)!
             async let (favorites, _) = URLSession.shared.data(from: url)
 
             return try await JSONDecoder().decode([Int].self, from: favorites)

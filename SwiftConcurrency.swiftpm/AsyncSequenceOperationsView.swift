@@ -11,7 +11,7 @@ struct AsyncSequenceOperationsView: View {
     @State private var selection: ExampleOption = .select
     @State private var quotes: [Quote] = []
 
-    private let url = URL(string: "https://hws.dev/quotes.txt")!
+    private let url = URL(string: Endpoints.quotes.rawValue)!
 
     let convertToInt: @Sendable (String) async -> Int? = { text in
         return Int(text)
